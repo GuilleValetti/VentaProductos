@@ -66,16 +66,18 @@
             <div class="modal-body">
               <div class="row">
                 <label for="NombreCliente" class="form-label">NombreCliente</label>
-                <input type="text" id="NombreCliete" placeholder="Nombre del Producto" class="form-control">
+                <input type="text" id="NombreCliente" placeholder="Nombre del Cliente" class="form-control">
   
                 <label for="ApellidoCliente" class="form-label">ApellidoCliente</label>
-                <input type="text" id="Cantidad" class="form-control">
+                <input type="text" id="ApellidoCliente" placeholder="Apellido del Cliente" class="form-control">
   
                 <label for="Dni" class="form-label">Dni</label>
-                <input type="number" id="Dni" class="form-control">
+                <input type="number" id="Dni" placeholder="Dni" class="form-control">
   
                 <label for="Saldo" class="form-label">Saldo</label>
-                <input type="number" id="Saldo" class="form-control">
+                <input type="number" id="Saldo" placeholder="Saldo" class="form-control">
+
+                <p id="error" hidden style="color: red;"></p>
               </div>
             </div>
             <div class="modal-footer">
@@ -101,13 +103,15 @@
                 <input type="text" id="NombreClienteEditar" placeholder="Nombre del Cliente" class="form-control">
   
                 <label for="ApellidoClienteEditar" class="form-label">ApellidoCliente</label>
-                <input type="text" id="ApellidoClienteEditar" class="form-control">
+                <input type="text" id="ApellidoClienteEditar" placeholder="Apellido del Cliente" class="form-control">
   
                 <label for="DniEditar" class="form-label">Dni</label>
-                <input type="number" id="DniEditar" class="form-control">
+                <input type="number" id="DniEditar" placeholder="Dni" class="form-control">
   
                 <label for="SaldoEditar" class="form-label">Saldo</label>
-                <input type="number" id="SaldoEditar" class="form-control">
+                <input type="number" id="SaldoEditar" placeholder="Saldo" class="form-control">
+
+                <p id="errorEditar" hidden style="color: red;"></p>
               </div>
             </div>
               <div class="modal-footer">
@@ -118,7 +122,6 @@
           </div>
         </div>
     </div>
-
 
     <script src="./js/clientes.js"></script>
     <script src="./lib/bootstrap/js/bootstrap.min.js"></script>

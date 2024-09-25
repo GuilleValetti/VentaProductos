@@ -49,9 +49,25 @@ function MostrarClientes(data) {
 }
 
 function CrearCliente() {
-    var cliente = document.getElementById("NombreCliente").value;
-    if (cliente == "" || cliente == null) {
-         return mensajesError('#error', null, "Por favor ingrese un Nombre para el Producto.");
+    var nombreCliente = document.getElementById("NombreCliente").value;
+    if (nombreCliente == "" || nombreCliente == null || /[^a-zA-Z\s]/.test(nombreCliente)) 
+    {
+        return mensajesError('#error', null, "Debe Ingresar el Nombre del Cliente.");
+    }
+    var apellidoCliente = document.getElementById("ApellidoCliente").value;
+    if (apellidoCliente == "" || apellidoCliente == null || /[^a-zA-Z\s]/.test(apellidoCliente)) 
+    {
+        return mensajesError('#error', null, "Debe Ingresar el Apellido del Cliente.");
+    }
+    var dni = document.getElementById("Dni").value;
+    if (dni == "" || dni == null || !/^\d{8}$/.test(dni)) 
+    {
+        return mensajesError('#error', null, "Debe Ingresar un DNI válido de 8 dígitos.");
+    }
+    var saldo = document.getElementById("Saldo").value;
+    if (saldo == "" || saldo == null) 
+    {
+        return mensajesError('#error', null, "Debe Ingresar el Saldo del Cliente.");
     }
 
     let cliente = {
@@ -78,6 +94,8 @@ function CrearCliente() {
             document.getElementById("Dni").value = 0;
             document.getElementById("Saldo").value = 0;
 
+            $('#error').empty();
+            $('#error').attr("hidden", true);
             $('#modalAgregarClientes').modal('hide');
             ObtenerClientes();
          } else {
@@ -89,7 +107,7 @@ function CrearCliente() {
 }
 
 function EliminarCliente(id) {
-    var siElimina = confirm("¿Esta seguro de borrar este producto?.")
+    var siElimina = confirm("¿Esta seguro de borrar este Cliente?.")
     if (siElimina == true) {
         EliminarSi(id);
     }
@@ -126,6 +144,27 @@ function BuscarClienteId(id) {
 function EditarCliente() {
     let idCliente = document.getElementById("IdCliente").value;
 
+    var nombreCliente = document.getElementById("NombreClienteEditar").value;
+    if (nombreCliente == "" || nombreCliente == null || /[^a-zA-Z\s]/.test(nombreCliente)) 
+    {
+        return mensajesError('#errorEditar', null, "Debe Ingresar el Nombre del Cliente.");
+    }
+    var apellidoCliente = document.getElementById("ApellidoClienteEditar").value;
+    if (apellidoCliente == "" || apellidoCliente == null || /[^a-zA-Z\s]/.test(apellidoCliente)) 
+    {
+        return mensajesError('#errorEditar', null, "Debe Ingresar el Apellido del Cliente.");
+    }
+    var dni = document.getElementById("DniEditar").value;
+    if (dni == "" || dni == null || !/^\d{8}$/.test(dni)) 
+    {
+        return mensajesError('#errorEditar', null, "Debe Ingresar un DNI válido de 8 dígitos.");
+    }
+    var saldo = document.getElementById("SaldoEditar").value;
+    if (saldo == "" || saldo == null || parseFloat(saldo) < 0) 
+    {
+        return mensajesError('#errorEditar', null, "Debe Ingresar el Saldo del Cliente.");
+    }
+
     let editarCliente = {
         id: idCliente,
         nombreCliente: document.getElementById("NombreClienteEditar").value,
@@ -142,7 +181,7 @@ function EditarCliente() {
         body: JSON.stringify(editarCliente)
     })
     .then(data => {
-
+        if (data.status == undefined || data.status == 204) {
             document.getElementById("IdCliente").value = 0;
             document.getElementById("NombreClienteEditar").value = "";
             document.getElementById("ApellidoClienteEditar").value = "";
@@ -150,6 +189,10 @@ function EditarCliente() {
             document.getElementById("SaldoEditar").value = 0;
             $('#modalEditarClientes').modal('hide');
             ObtenerClientes();
+        }
+        else {
+            mensajesError('#errorEditar', data);
+        }
     })
     .catch(error => console.error("No se pudo acceder a la api, verifique el mensaje de error: ", error))
 }

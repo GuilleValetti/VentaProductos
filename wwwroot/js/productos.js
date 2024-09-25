@@ -47,28 +47,28 @@ function MostrarProductos(data) {
         td6.appendChild(btnEliminar);
     });
 }
-// function MostrarProductos(data) {
-//     $("#todosLosProductos").empty();
-//     $.each(data, function(index, item) {
-//         $('#todosLosProductos').append(
-//             "<tr>",
-//             "<td>" + item.id + "</td>",
-//             "<td>" + item.nombreProducto + "</td>",
-//             "<td>" + item.cantidad + "</td>",
-//             "<td>" + item.precioVenta + "</td>",
-//             "<td>" + item.precioCompra + "</td>",
-//             "<td><button class='btn btn-info' onclick='BuscarProductoId(" + item.id + ")'>Modificar</button></td>",
-//             "<td><button class='btn btn-danger' onclick='EliminarProducto(" + item.id + ")'>Eliminar</button></td>",
-//             "</tr>"
-//         )
-//     })
-// }
 
 function CrearProducto() {
-     var nombreProd = document.getElementById("Nombre").value;
-     if (nombreProd == "" || nombreProd == null) {
-         return mensajesError('#error', null, "Por favor ingrese un Nombre para el Producto.");
-     }
+    var nombreProducto = document.getElementById("Nombre").value;
+    if (nombreProducto == "" || nombreProducto == null || /[^a-zA-Z\s]/.test(nombreProducto)) 
+    {
+        return mensajesError('#error', null, "Debe Ingresar el Nombre del Producto.");
+    }
+    var cantidad = document.getElementById("Cantidad").value;
+    if(cantidad == "" || cantidad == null)
+    {
+        return mensajesError('#error', null, "Debe Ingresar la Cantidad de producto existente.")
+    }
+    var precioVenta = document.getElementById("PrecioVenta").value;
+    if(precioVenta == "" || precioVenta == null)
+    {
+        return mensajesError('#error', null, "Debe Ingresar el Precio de Venta.")
+    }
+    var precioCompra = document.getElementById("PrecioCompra").value;
+    if(precioCompra == "" || precioCompra == null)
+    {
+        return mensajesError('#error', null, "Debe Ingresar el Precio de Compra.")
+    }
 
     let producto = {
         nombreProducto: document.getElementById("Nombre").value,
@@ -94,6 +94,8 @@ function CrearProducto() {
             document.getElementById("PrecioVenta").value = 0;
             document.getElementById("PrecioCompra").value = 0;
 
+            $('#error').empty();
+            $('#error').attr("hidden", true);
             $('#modalAgregarProductos').modal('hide');
             ObtenerProductos();
         } else {
@@ -145,6 +147,27 @@ function BuscarProductoId(id) {
 function EditarProducto() {
     let idProducto = document.getElementById("IdProducto").value;
 
+    var nombreProductoEditar = document.getElementById("NombreEditar").value;
+    if (nombreProductoEditar == "" || nombreProductoEditar == null || /[^a-zA-Z\s]/.test(nombreProductoEditar)) 
+    {
+        return mensajesError('#errorEditar', null, "Debe Ingresar el Nombre del Producto.");
+    }
+    var cantidadEditar = document.getElementById("CantidadEditar").value;
+    if(cantidadEditar == "" || cantidadEditar == null)
+    {
+        return mensajesError('#errorEditar', null, "Debe Ingresar la Cantidad de producto existente.")
+    }
+    var precioVentaEditar = document.getElementById("PrecioVentaEditar").value;
+    if(precioVentaEditar == "" || precioVentaEditar == null)
+    {
+        return mensajesError('#errorEditar', null, "Debe Ingresar el Precio de Venta.")
+    }
+    var precioCompraEditar = document.getElementById("PrecioCompraEditar").value;
+    if(precioCompraEditar == "" || precioCompraEditar == null)
+    {
+        return mensajesError('#errorEditar', null, "Debe Ingresar el Precio de Compra.")
+    }
+
     let editarProducto = {
         id: idProducto,
         nombreProducto: document.getElementById("NombreEditar").value,
@@ -161,7 +184,7 @@ function EditarProducto() {
         body: JSON.stringify(editarProducto)
     })
     .then(data => {
-
+        if (data.status == undefined || data.status == 204) {
             document.getElementById("IdProducto").value = 0;
             document.getElementById("NombreEditar").value = "";
             document.getElementById("CantidadEditar").value = 0;
@@ -169,6 +192,10 @@ function EditarProducto() {
             document.getElementById("PrecioCompraEditar").value = 0;
             $('#modalEditarProductos').modal('hide');
             ObtenerProductos();
+        }
+        else {
+            mensajesError('#errorEditar', data);
+        }
     })
     .catch(error => console.error("No se pudo acceder a la api, verifique el mensaje de error: ", error))
 }
