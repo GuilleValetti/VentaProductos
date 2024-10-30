@@ -9,7 +9,7 @@ using VentaProductos.Models;
 
 namespace VentaProductos.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class VentasController : ControllerBase
     {
@@ -24,7 +24,8 @@ namespace VentaProductos.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Venta>>> GetVenta()
         {
-            return await _context.Venta.ToListAsync();
+            var ventas = await _context.Venta.Include(x => x.Cliente).ToListAsync();
+            return ventas;
         }
 
         // GET: api/Ventas/5
@@ -69,7 +70,7 @@ namespace VentaProductos.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(venta);
         }
 
         // POST: api/Ventas

@@ -58,19 +58,74 @@
       <tbody id="todasLasVentas"></tbody>
     </table>
 
+    <div id="modalAgregarVentas" class="modal fade" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Agregar Venta</h5>
+              </div>
+              <div class="modal-body">
+                  <div class="row">
+                      <label for="FechaVenta" class="form-label">Fecha Venta</label>
+                      <input type="date" id="FechaVenta" class="form-control">
 
+                      <label for="Finalizada" class="form-label">Finalizada</label>
+                      <input type="checkbox" id="Finalizada" class="form-control">
 
+                      <label for="IdCliente" class="form-label">IdCliente</label>
+                      <select id="IdCliente" class="form-control"></select>
 
+                      <p id="error" hidden style="color: red;"></p>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="CrearVenta();">Guardar</button>
+              </div>
+          </div>
+      </div>
+    </div>
 
+    <!-- <div id="modalEditarVentas" class="modal fade" tabindex="-1" data-bs-backdrop="static" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">Editar Ventas</h5>
+              </div>
+              <div class="modal-body">
+                  <div class="row">
+                      <input type="number" id="IdVenta" class="form-control" readonly hidden>
+
+                      <label for="FechaVentaEditar" class="form-label">FechaVenta</label>
+                      <input type="datetime-local" id="FechaVentaEditar" class="form-control">
+
+                      <label for="FinalizadaEditar" class="form-label">Finalizada</label>
+                      <input type="checkbox" id="FinalizadaEditar" class="form-control">
+
+                      <label for="IdClienteEditar" class="form-label">IdCliente</label>
+                      <select id="IdClienteEditar" class="form-control"></select>
+                      
+                      <p id="errorEditar" hidden style="color: red;"></p>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-primary" onclick="EditarVenta();">Guardar</button>
+              </div>
+          </div>
+      </div>
+    </div> -->
     
     <script src="./js/ventas.js"></script>
+    <script src="./js/clientes.js"></script>
+    <script src="js/common/obtenerClientesDropDown.js"></script>
     <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     <script type="text/javascript">
       window.onload = ObtenerVentas();
-      window.onload = ObtenerDetalleVentas();
+      window.onload = ObtenerClientesDropDown();
     </script>
 </body>
 

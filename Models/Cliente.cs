@@ -10,5 +10,5 @@ public class Cliente
     public string? ApellidoCliente { get; set; }
     public int Dni { get; set; }
     public float Saldo { get; set; }
-    public ICollection<Venta> Venta { get; set; } = null!;
+    public virtual ICollection<Venta>? Venta { get; set; }
 }

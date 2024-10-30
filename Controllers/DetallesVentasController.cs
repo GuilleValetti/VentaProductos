@@ -9,7 +9,7 @@ using VentaProductos.Models;
 
 namespace VentaProductos.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class DetallesVentasController : ControllerBase
     {
